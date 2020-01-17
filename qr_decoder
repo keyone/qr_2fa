@@ -1,0 +1,18 @@
+#!/usr/bin/php
+<?php
+require __DIR__ . "/vendor/autoload.php";
+error_reporting(E_ERROR | E_PARSE);
+use Zxing\QrReader;
+if (count($argv) < 2) {
+    print "please pass as argument the image path\ne.g. qr_decoder img/okta.png\n";
+    exit(1);
+}
+try {
+    $qrcode = new QrReader($argv[1]);
+    $text = $qrcode->text(); //return decoded text from QR Code
+    print $text;
+} catch (Exception $e) {
+    print "Cannot find image in " . $argv[1] . "\n";
+    exit(1);
+}
+print "\n";
